@@ -1,0 +1,11 @@
+FROM python:latest
+
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY app/ .
+
+EXPOSE 4241
+
+CMD ["streamlit", "run", "main.py", "--server.address=0.0.0.0", "--server.port=4241"]
