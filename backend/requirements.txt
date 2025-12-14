@@ -2,5 +2,9 @@ fastapi
 uvicorn
 requests
 joblib
-scikit-learn
 pandas
+torch
+transformers
+peft
+mps
+torch

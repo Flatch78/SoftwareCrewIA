@@ -2,6 +2,7 @@ FROM python:latest
 
 WORKDIR /app
 
+ADD models /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 

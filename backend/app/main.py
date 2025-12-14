@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from data.models import UserCaseRequest
-from core import service
+from core.service import Service
 
 app = FastAPI()
+service = Service()
 
 @app.get("/hello")
 def hello():
@@ -15,5 +16,5 @@ def root():
 
 @app.post("/create", status_code=201)
 def create_answer(payload: UserCaseRequest):
-    payload = payload.dict()
+    payload = payload.model_dump()
     return service.create_answer(payload)
