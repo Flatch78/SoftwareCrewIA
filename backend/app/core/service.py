@@ -1,17 +1,16 @@
-import json
-
 from .predict import Prediction
-from .datasets import DatasetLoader
-
-FILE_PATH = "../data/raw/"
-FILE_NAME = "export_us_01.csv"
+from .tags_gen import TagsGen
+from .device import Device
 
 class Service:
     def __init__(self):
-        self.prediction = Prediction()
+        self.device = Device()
+        self.prediction = Prediction(self.device)
+        self.tags_gen = TagsGen()
 
     def create_answer(self, payload):
-        output = self.prediction.predict(payload)
+        tags = self.tags_gen.generate_client_tags(payload['data'])
+        output = self.prediction.predict(tags)
         result = {
             'input': payload['data'],
             'output': output

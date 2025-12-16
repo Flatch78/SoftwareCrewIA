@@ -1,13 +1,17 @@
 from fastapi import FastAPI
 from data.models import UserCaseRequest
+from data.train import train
 from core.service import Service
 
 app = FastAPI()
 service = Service()
 
-@app.get("/hello")
-def hello():
-    return {"message": "Hello from FastAPI Backend!"}
+@app.get("/train")
+def train_model():
+    print("Début de l'entraînement")
+    train()
+    print("Fin de l'entraînement")
+    return {"message": "Modèle entraîné avec succès"}
 
 @app.get("/")
 def root():
@@ -17,4 +21,6 @@ def root():
 @app.post("/create", status_code=201)
 def create_answer(payload: UserCaseRequest):
     payload = payload.model_dump()
-    return service.create_answer(payload)
+    resp = service.create_answer(payload)
+    print(f"payload {payload}\nResp {resp}\n")
+    return resp
